@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
     technology: { label: "Technology", color: "#e8eaf6", textColor: "#3949ab" },
   };
 
+  // Order of categories for grouped display
+  const categoryDisplayOrder = ['sports', 'arts', 'academic', 'community', 'technology'];
+
   // State for activities and filters
   let allActivities = {};
   let currentFilter = "all";
@@ -479,7 +482,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Function to display activities grouped by category
+  /**
+   * Display activities grouped by category with styled headers.
+   * Groups activities into categories (Sports, Arts, Academic, Community, Technology)
+   * and displays each group with a header showing the category name and count.
+   * 
+   * @param {Object} activities - Object containing filtered activities to display
+   */
   function displayGroupedActivities(activities) {
     // Group activities by category
     const groupedActivities = {};
@@ -493,12 +502,9 @@ document.addEventListener("DOMContentLoaded", () => {
       
       groupedActivities[activityType].push({ name, details });
     });
-
-    // Define the order of categories
-    const categoryOrder = ['sports', 'arts', 'academic', 'community', 'technology'];
     
-    // Display each category group
-    categoryOrder.forEach((category) => {
+    // Display each category group in the defined order
+    categoryDisplayOrder.forEach((category) => {
       if (groupedActivities[category] && groupedActivities[category].length > 0) {
         const typeInfo = activityTypes[category];
         const count = groupedActivities[category].length;
@@ -532,7 +538,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Helper function to create activity card element (extracted from renderActivityCard)
+  /**
+   * Create an activity card DOM element with all interactive features.
+   * This helper function creates a complete activity card including capacity indicators,
+   * participant lists, and registration buttons. Event handlers are attached for
+   * delete and register actions.
+   * 
+   * @param {string} name - The name of the activity
+   * @param {Object} details - Activity details including description, schedule, participants, etc.
+   * @returns {HTMLElement} The activity card DOM element ready to be appended
+   */
   function createActivityCardElement(name, details) {
     const activityCard = document.createElement("div");
     activityCard.className = "activity-card";
