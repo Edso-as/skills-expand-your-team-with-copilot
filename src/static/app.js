@@ -681,6 +681,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const startHour = 6; // 6 AM
     const endHour = 18; // 6 PM
     const intervalMinutes = 30;
+    const SLOT_HEIGHT = 60; // Height in pixels per 30-minute slot
+    const ACTIVITY_PADDING = 4; // Padding to subtract from activity height
+    const TOOLTIP_WIDTH = 300; // Width of tooltip in pixels
 
     // Create calendar grid
     const calendarGrid = document.createElement("div");
@@ -774,7 +777,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activityEl.style.color = typeInfo.textColor;
         activityEl.style.borderLeftColor = typeInfo.textColor;
         activityEl.style.top = "0";
-        activityEl.style.height = `${duration * 60 - 4}px`; // 60px per slot minus padding
+        activityEl.style.height = `${duration * SLOT_HEIGHT - ACTIVITY_PADDING}px`; // SLOT_HEIGHT per slot minus padding
 
         // Check for overlapping activities in the same time slot
         const firstCell = overlappingCells[0];
@@ -815,12 +818,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const rect = activityEl.getBoundingClientRect();
           
           // Position tooltip to the right of the activity if there's space
-          if (rect.right + 300 < window.innerWidth) {
+          if (rect.right + TOOLTIP_WIDTH < window.innerWidth) {
             tooltip.style.left = `${rect.right + 10}px`;
             tooltip.style.top = `${rect.top}px`;
           } else {
             // Otherwise position to the left
-            tooltip.style.left = `${rect.left - 260}px`;
+            tooltip.style.left = `${rect.left - TOOLTIP_WIDTH + 40}px`;
             tooltip.style.top = `${rect.top}px`;
           }
         });

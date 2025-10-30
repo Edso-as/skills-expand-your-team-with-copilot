@@ -30,6 +30,10 @@
   --error-light: #ffebee;
   --info: #0c5460;
   --info-light: #d1ecf1;
+
+  /* Calendar specific */
+  --calendar-time-column-width: 80px;
+  --calendar-tooltip-bg: rgba(33, 33, 33, 0.95);
 }
 
 * {
@@ -716,7 +720,7 @@ footer {
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: 80px repeat(7, 1fr);
+  grid-template-columns: var(--calendar-time-column-width) repeat(7, 1fr);
   gap: 1px;
   background-color: var(--border);
   border: 1px solid var(--border);
@@ -793,8 +797,8 @@ footer {
 /* Calendar activity tooltip */
 .calendar-activity .activity-tooltip {
   visibility: hidden;
-  background-color: rgba(33, 33, 33, 0.95);
-  color: #fff;
+  background-color: var(--calendar-tooltip-bg);
+  color: white;
   padding: 12px;
   border-radius: 6px;
   font-size: 0.85rem;
