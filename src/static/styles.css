@@ -30,6 +30,10 @@
   --error-light: #ffebee;
   --info: #0c5460;
   --info-light: #d1ecf1;
+
+  /* Calendar specific */
+  --calendar-time-column-width: 80px;
+  --calendar-tooltip-bg: rgba(33, 33, 33, 0.95);
 }
 
 * {
@@ -619,6 +623,46 @@ footer {
   right: 15px;
 }
 
+/* View toggle controls */
+#view-toggle {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  display: flex;
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  border-radius: 20px;
+}
+
+.view-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.view-toggle-btn.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.view-icon {
+  font-size: 1rem;
+}
+
 #user-status {
   display: flex;
   align-items: center;
@@ -663,4 +707,157 @@ footer {
 
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Calendar View Styles */
+#calendar-view {
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--surface);
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: var(--calendar-time-column-width) repeat(7, 1fr);
+  gap: 1px;
+  background-color: var(--border);
+  border: 1px solid var(--border);
+  min-width: 900px;
+}
+
+.calendar-header {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.calendar-time-label {
+  background-color: var(--background);
+  padding: 8px;
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border-right: 2px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.calendar-cell {
+  background-color: var(--surface);
+  padding: 2px;
+  min-height: 60px;
+  position: relative;
+  border: 1px solid var(--border-light);
+}
+
+.calendar-cell:hover {
+  background-color: var(--background);
+}
+
+.calendar-activity {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  overflow: hidden;
+  cursor: pointer;
+  border-left: 3px solid;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.calendar-activity:hover {
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.calendar-activity-name {
+  font-weight: bold;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-activity-enrollment {
+  font-size: 0.65rem;
+  opacity: 0.9;
+}
+
+/* Calendar activity tooltip */
+.calendar-activity .activity-tooltip {
+  visibility: hidden;
+  background-color: var(--calendar-tooltip-bg);
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  position: fixed;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+  min-width: 250px;
+  max-width: 350px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.calendar-activity:hover .activity-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.activity-tooltip h4 {
+  margin: 0 0 8px 0;
+  color: white;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 6px;
+}
+
+.activity-tooltip p {
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.activity-tooltip .tooltip-label {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive calendar */
+@media (max-width: 767px) {
+  #calendar-view {
+    padding: 10px;
+  }
+  
+  .calendar-grid {
+    min-width: 700px;
+    grid-template-columns: 60px repeat(7, 1fr);
+  }
+  
+  .calendar-header {
+    font-size: 0.75rem;
+    padding: 8px 4px;
+  }
+  
+  .calendar-time-label {
+    font-size: 0.7rem;
+    padding: 6px 4px;
+  }
+  
+  .calendar-activity {
+    font-size: 0.65rem;
+    padding: 3px 4px;
+  }
 }
