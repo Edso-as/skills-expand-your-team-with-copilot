@@ -1,25 +1,25 @@
 /* Color palette */
 :root {
-  /* Primary colors */
-  --primary: #1a237e;
-  --primary-light: #534bae;
-  --primary-dark: #000051;
-  --primary-text: #ffffff;
+  /* Primary colors - School colors: lime green and white */
+  --primary: #32cd32;
+  --primary-light: #7fff00;
+  --primary-dark: #228b22;
+  --primary-text: #000000;
 
   /* Secondary colors */
-  --secondary: #ff6f00;
-  --secondary-light: #ffa040;
-  --secondary-dark: #c43e00;
-  --secondary-text: #ffffff;
+  --secondary: #32cd32;
+  --secondary-light: #7fff00;
+  --secondary-dark: #228b22;
+  --secondary-text: #000000;
 
   /* Neutral colors */
-  --background: #f5f5f5;
-  --surface: #ffffff;
+  --background: #ffffff;
+  --surface: #f9fff9;
   --text-primary: #333333;
   --text-secondary: #666666;
-  --border: #e0e0e0;
-  --border-light: #f0f0f0;
-  --border-focus: #d0d0d0;
+  --border: #32cd32;
+  --border-light: #90ee90;
+  --border-focus: #228b22;
 
   /* Feedback colors */
   --success: #2e7d32;
@@ -48,6 +48,68 @@ body {
   padding: 12px;
   background-color: var(--background);
   font-size: 0.9rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Git-style branch lines background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(to bottom, #ffffff 0%, #f9fff9 100%);
+  opacity: 1;
+}
+
+.git-branches {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.branch-line {
+  position: absolute;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, #32cd32, transparent);
+  animation: moveBranch 15s linear infinite;
+  opacity: 0.3;
+}
+
+.branch-line::before,
+.branch-line::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #32cd32;
+  border-radius: 50%;
+  left: -3px;
+}
+
+.branch-line::before {
+  top: 20%;
+}
+
+.branch-line::after {
+  top: 80%;
+}
+
+@keyframes moveBranch {
+  0% {
+    transform: translateY(-100%) rotate(5deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(5deg);
+  }
 }
 
 header {
@@ -71,6 +133,61 @@ header h1 {
 
 header h2 {
   font-size: 1.2rem;
+}
+
+/* Mascots Section */
+#mascots-section {
+  background-color: var(--surface);
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--primary);
+}
+
+#mascots-section h3 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.mascots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.mascot {
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.mascot:hover {
+  transform: scale(1.1);
+}
+
+.mascot img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  box-shadow: 0 4px 8px rgba(50, 205, 50, 0.3);
+  transition: all 0.3s ease;
+}
+
+.mascot img:hover {
+  border-color: var(--primary-light);
+  box-shadow: 0 6px 12px rgba(50, 205, 50, 0.5);
+}
+
+.mascot p {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--primary);
 }
 
 main {
