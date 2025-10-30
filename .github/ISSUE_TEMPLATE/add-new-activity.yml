@@ -27,20 +27,11 @@ body:
       required: true
       
   - type: input
-    id: teacher-sponsor
-    attributes:
-      label: Teacher Sponsor
-      description: Who will be the teacher sponsor for this activity?
-      placeholder: "e.g., Mr. Smith, Ms. Johnson"
-    validations:
-      required: true
-      
-  - type: input
     id: meeting-schedule
     attributes:
       label: Meeting Schedule
-      description: When and where will this activity meet?
-      placeholder: "e.g., Tuesdays 3-4 PM in Room 205"
+      description: When will this activity meet? (days and times)
+      placeholder: "e.g., Tuesdays and Thursdays, 3:30 PM - 5:00 PM"
     validations:
       required: true
       
@@ -67,11 +58,12 @@ body:
       value: |
         ## Acceptance Criteria
         - [ ] New activity is added to the activities list
-        - [ ] Activity includes all required information (name, description, sponsor, schedule, max participants)
+        - [ ] Activity includes all required information (name, description, schedule, max participants)
         - [ ] Students can view the new activity on the website
         - [ ] Students can sign up for the activity
         
         ## Implementation Hints
         - The activity data is stored in `src/backend/database.py`
-        - New activities should be added to the `ACTIVITIES` list
-        - Each activity should have: name, description, teacher_sponsor, schedule, max_participants, and current_participants (initially 0)
+        - New activities should be added to the `initial_activities` dictionary
+        - Each activity should have: description, schedule, schedule_details (with days, start_time, end_time), max_participants, and participants (initially an empty list)
+        - The activity name is used as the key in the dictionary
