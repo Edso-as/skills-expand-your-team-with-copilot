@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoryFilters = document.querySelectorAll(".category-filter");
   const dayFilters = document.querySelectorAll(".day-filter");
   const timeFilters = document.querySelectorAll(".time-filter");
+  const groupByCheckbox = document.getElementById("group-by-category");
 
   // Authentication elements
   const loginButton = document.getElementById("login-button");
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let searchQuery = "";
   let currentDay = "";
   let currentTimeRange = "";
+  let groupByCategory = false;
 
   // Authentication state
   let currentUser = null;
@@ -466,14 +468,72 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Display filtered activities
-    Object.entries(filteredActivities).forEach(([name, details]) => {
-      renderActivityCard(name, details);
+    // Display filtered activities - grouped or ungrouped
+    if (groupByCategory) {
+      displayGroupedActivities(filteredActivities);
+    } else {
+      // Display filtered activities normally
+      Object.entries(filteredActivities).forEach(([name, details]) => {
+        renderActivityCard(name, details);
+      });
+    }
+  }
+
+  // Function to display activities grouped by category
+  function displayGroupedActivities(activities) {
+    // Group activities by category
+    const groupedActivities = {};
+    
+    Object.entries(activities).forEach(([name, details]) => {
+      const activityType = getActivityType(name, details.description);
+      
+      if (!groupedActivities[activityType]) {
+        groupedActivities[activityType] = [];
+      }
+      
+      groupedActivities[activityType].push({ name, details });
+    });
+
+    // Define the order of categories
+    const categoryOrder = ['sports', 'arts', 'academic', 'community', 'technology'];
+    
+    // Display each category group
+    categoryOrder.forEach((category) => {
+      if (groupedActivities[category] && groupedActivities[category].length > 0) {
+        const typeInfo = activityTypes[category];
+        const count = groupedActivities[category].length;
+        
+        // Create category group container
+        const groupContainer = document.createElement('div');
+        groupContainer.className = 'category-group';
+        
+        // Create category header
+        const groupHeader = document.createElement('div');
+        groupHeader.className = 'category-group-header';
+        groupHeader.innerHTML = `
+          <h3>${typeInfo.label}</h3>
+          <span class="category-group-count">${count} ${count === 1 ? 'activity' : 'activities'}</span>
+        `;
+        
+        // Create activities container for this group
+        const activitiesContainer = document.createElement('div');
+        activitiesContainer.className = 'category-group-activities';
+        
+        // Add all activities in this category
+        groupedActivities[category].forEach(({ name, details }) => {
+          const card = createActivityCardElement(name, details);
+          activitiesContainer.appendChild(card);
+        });
+        
+        groupContainer.appendChild(groupHeader);
+        groupContainer.appendChild(activitiesContainer);
+        activitiesList.appendChild(groupContainer);
+      }
     });
   }
 
-  // Function to render a single activity card
-  function renderActivityCard(name, details) {
+  // Helper function to create activity card element (extracted from renderActivityCard)
+  function createActivityCardElement(name, details) {
     const activityCard = document.createElement("div");
     activityCard.className = "activity-card";
 
@@ -587,6 +647,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    return activityCard;
+  }
+
+  // Function to render a single activity card
+  function renderActivityCard(name, details) {
+    const activityCard = createActivityCardElement(name, details);
     activitiesList.appendChild(activityCard);
   }
 
@@ -639,6 +705,12 @@ document.addEventListener("DOMContentLoaded", () => {
       currentTimeRange = button.dataset.time;
       fetchActivities();
     });
+  });
+
+  // Add event listener for group-by checkbox
+  groupByCheckbox.addEventListener("change", (event) => {
+    groupByCategory = event.target.checked;
+    displayFilteredActivities();
   });
 
   // Open registration modal
