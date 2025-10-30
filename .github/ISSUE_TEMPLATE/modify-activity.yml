@@ -1,0 +1,70 @@
+name: Modify Existing Activity
+description: Request changes to an existing extracurricular activity
+title: "[Modify Activity]: "
+labels: ["enhancement", "activity"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to request changes to an existing activity. Please provide clear details about what needs to be changed.
+        
+  - type: input
+    id: activity-name
+    attributes:
+      label: Activity Name
+      description: Which activity needs to be modified?
+      placeholder: "e.g., Chess Club, Drama Club"
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: change-type
+    attributes:
+      label: What needs to be changed?
+      description: Select all that apply
+      options:
+        - label: Activity name
+        - label: Description
+        - label: Teacher sponsor
+        - label: Meeting schedule
+        - label: Maximum participants
+        - label: Other (explain below)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: requested-changes
+    attributes:
+      label: Requested Changes
+      description: Describe exactly what should be changed and what the new values should be
+      placeholder: |
+        Example:
+        - Change meeting time from "Tuesdays 3-4 PM" to "Wednesdays 3-4 PM"
+        - Update description to include "No prior experience necessary"
+        - Increase max participants from 15 to 20
+    validations:
+      required: true
+      
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason for Change
+      description: Why is this change needed?
+      placeholder: "Explain the reason for the requested changes"
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## Acceptance Criteria
+        - [ ] The specified activity is updated with the requested changes
+        - [ ] Changes are visible on the website
+        - [ ] All existing signups for the activity are preserved
+        - [ ] The activity still functions correctly after the changes
+        
+        ## Implementation Hints
+        - Activity data is stored in `src/backend/database.py`
+        - Find the activity in the `ACTIVITIES` list by name
+        - Update only the specified fields
+        - Ensure the activity structure remains valid

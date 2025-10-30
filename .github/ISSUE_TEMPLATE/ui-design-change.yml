@@ -1,0 +1,95 @@
+name: UI or Design Change
+description: Request visual or user interface improvements
+title: "[UI/Design]: "
+labels: ["enhancement", "ui"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to request changes to the appearance or user experience of the activities website.
+        
+  - type: dropdown
+    id: change-area
+    attributes:
+      label: Which part of the website needs changes?
+      options:
+        - Home page / Activities list
+        - Activity details view
+        - Sign-up form
+        - Navigation or layout
+        - Colors or styling
+        - Other (describe below)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: current-state
+    attributes:
+      label: Current State
+      description: Describe what the interface looks like now
+      placeholder: "Example: The activity cards are all the same color and it's hard to tell them apart"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: desired-state
+    attributes:
+      label: Desired Changes
+      description: Describe what you'd like it to look like or how it should work differently
+      placeholder: |
+        Example:
+        - Make activity cards use different colors based on category
+        - Add icons for each activity type
+        - Make the sign-up button more prominent
+    validations:
+      required: true
+      
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose of Changes
+      description: Why are these changes needed? What problem will they solve?
+      placeholder: "Example: Students are having trouble finding specific activities quickly"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: design-preferences
+    attributes:
+      label: Design Preferences
+      description: Any specific colors, fonts, layouts, or examples you'd like to reference?
+      placeholder: |
+        Example:
+        - Use school colors (blue and gold)
+        - Keep it simple and clean
+        - Similar to the school's main website
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: considerations
+    attributes:
+      label: Important Considerations
+      description: Select any that apply
+      options:
+        - label: Should work on mobile devices
+        - label: Should be accessible for students with disabilities
+        - label: Should match school branding
+        - label: Should be easy for students to understand
+        
+  - type: markdown
+    attributes:
+      value: |
+        ## Acceptance Criteria
+        - [ ] UI changes are implemented as described
+        - [ ] Changes improve user experience and are visually appealing
+        - [ ] Design works on different screen sizes (mobile, tablet, desktop)
+        - [ ] All functionality continues to work correctly
+        - [ ] Changes follow web accessibility best practices
+        
+        ## Implementation Hints
+        - Frontend files are located in `src/static/`
+        - HTML structure is in `src/static/index.html`
+        - CSS styles are in `src/static/styles.css` (if it exists)
+        - JavaScript is in `src/static/script.js` (if it exists)
+        - Consider using CSS frameworks or simple inline styles for quick changes
