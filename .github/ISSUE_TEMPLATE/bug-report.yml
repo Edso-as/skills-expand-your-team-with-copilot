@@ -1,0 +1,86 @@
+name: Bug Report
+description: Report a problem with the activities system
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please provide detailed information to help us fix it quickly.
+        
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: What's not working?
+      description: Clearly describe the problem you're experiencing
+      placeholder: "Example: When I try to sign up for Chess Club, I get an error message"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this problem?
+      placeholder: |
+        1. Go to the activities page
+        2. Click on 'Chess Club'
+        3. Enter email address
+        4. Click 'Sign Up'
+        5. See error message
+    validations:
+      required: true
+      
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: "Example: The student should be successfully signed up for the activity"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: "Example: An error message appears saying 'Failed to sign up'"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this happen?
+      options:
+        - Every time
+        - Sometimes
+        - Only once
+        - Not sure
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that might help (screenshots, error messages, specific activity names, etc.)
+      placeholder: "Add any additional details here"
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## Acceptance Criteria
+        - [ ] The reported bug is identified and root cause is determined
+        - [ ] A fix is implemented that resolves the issue
+        - [ ] The fix is tested to ensure it works correctly
+        - [ ] The fix doesn't break any existing functionality
+        
+        ## Implementation Hints
+        - Check the browser console for error messages (F12 in most browsers)
+        - Review the API endpoint behavior in `src/backend/routers/`
+        - Test with the steps provided above
+        - Verify database operations in `src/backend/database.py`

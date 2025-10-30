@@ -1,0 +1,91 @@
+name: Feature Request
+description: Suggest a new feature or improvement not covered by other templates
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement! Please describe your feature request in detail.
+        
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem or Need
+      description: What problem does this feature solve? What need does it address?
+      placeholder: "Example: Teachers need a way to cancel an activity if not enough students sign up"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe what you'd like to happen. Be as specific as possible.
+      placeholder: |
+        Example:
+        - Add a "Cancel Activity" button for teachers
+        - Send notification emails to students who signed up
+        - Remove the activity from the list
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: user-type
+    attributes:
+      label: Who will use this feature?
+      options:
+        - Students
+        - Teachers
+        - Both students and teachers
+        - Administrators
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How important is this feature?
+      options:
+        - Critical - needed immediately
+        - High - needed soon
+        - Medium - would be nice to have
+        - Low - not urgent
+    validations:
+      required: true
+      
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Have you considered any alternative approaches?
+      placeholder: "Describe any other ways this problem could be solved"
+    validations:
+      required: false
+      
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information, mockups, examples, or context
+      placeholder: "Add any additional details, screenshots, or examples here"
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## Acceptance Criteria
+        - [ ] Clear problem description provided above
+        - [ ] Proposed solution is well-defined
+        - [ ] Feature is implemented according to the requirements
+        - [ ] Feature is tested and works as expected
+        - [ ] Existing functionality is not broken
+        
+        ## Implementation Hints
+        - Review the existing codebase structure before implementing
+        - Backend API routes are in `src/backend/routers/`
+        - Database operations are in `src/backend/database.py`
+        - Frontend files are in `src/static/`
+        - Consider edge cases and error handling
+        - Ensure changes align with the overall application architecture
